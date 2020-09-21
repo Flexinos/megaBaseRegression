@@ -22,13 +22,19 @@ def my_kneighbors_classifier():
     return kneighbors_model
 
 
+def check_csv():
+    # computationally extremely intensive
+    if np.isnan(np.sum(csv)):
+        raise Exception("Csv contains Nan!")
+
+
 if __name__ == '__main__':
     csv = np.loadtxt('megabaseParsed;0;1;2.txt', delimiter=',', dtype='int')
-    # print(np.isnan(np.sum(csv)))
+    # check_csv()
     array = np.array(csv)
     elos = array[:, [1, 2]]
     results = array[:, 0]
-    x_train, x_test, y_train, y_test = train_test_split(elos, results, test_size=0.15, random_state=2)
+    x_train, x_test, y_train, y_test = train_test_split(elos, results, test_size=0.15, random_state=0)
     # model = my_logistic_regression()
     model = my_kneighbors_classifier()
     y_pred = model.predict(x_test)
