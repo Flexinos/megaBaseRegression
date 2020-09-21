@@ -16,6 +16,8 @@ def my_logistic_regression():
 
 
 def my_kneighbors_classifier():
+    # 10 neighbors -> score test: 0.50
+    # 100 neighbors -> score test 0.544
     kneighbors_model = KNeighborsClassifier(n_neighbors=100, n_jobs=-1)
     kneighbors_model.fit(x_train, y_train)
     return kneighbors_model
