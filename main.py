@@ -17,15 +17,23 @@ def my_logistic_regression():
 
 def my_kneighbors_classifier():
     kneighbors_model = KNeighborsClassifier(n_neighbors=100, n_jobs=-1)
-    print("Score training: " + kneighbors_model.score(x_train, y_train).__str__())
-    print("Score test: " + kneighbors_model.score(x_test, y_test).__str__())
+    kneighbors_model.fit(x_train, y_train)
     return kneighbors_model
 
 
 def check_csv():
     # computationally extremely intensive
+    # sum is NaN if at least one element is Nan
     if np.isnan(np.sum(csv)):
         raise Exception("Csv contains Nan!")
+
+
+def print_results():
+    print("Score training: " + model.score(x_train, y_train).__str__())
+    print("Score test: " + model.score(x_test, y_test).__str__())
+    print("Confusion Matrix (black/draw/white):")
+    print(confusion_matrix(y_test, y_pred))
+    print(classification_report(y_test, y_pred))
 
 
 if __name__ == '__main__':
@@ -38,6 +46,4 @@ if __name__ == '__main__':
     # model = my_logistic_regression()
     model = my_kneighbors_classifier()
     y_pred = model.predict(x_test)
-    print("Confusion Matrix (black/draw/white):")
-    print(confusion_matrix(y_test, y_pred))
-    print(classification_report(y_test, y_pred))
+    print_results()
